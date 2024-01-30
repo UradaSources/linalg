@@ -493,17 +493,17 @@ namespace linalg
 	template<class P, class A, class B> constexpr apply_t<detail::select, P, A, B> select(const P& p, const A& a, const B& b) { return apply(detail::select{}, p, a, b); }
 	template<class A, class B, class T> constexpr apply_t<detail::lerp, A, B, T> lerp(const A& a, const B& b, const T& t) { return apply(detail::lerp{}, a, b, t); }
 
-	constexpr float repeat(float t, float length)
+	inline float repeat(float t, float length)
 	{
 		return clamp(t - floor(t / length) * length, 0.0f, length);
 	}
-	constexpr float ping_pong(float t, float length)
+	inline float ping_pong(float t, float length)
 	{
 		t = repeat(t, length * 2.0f);
 		return length - abs(t - length);
 	}
 
-	constexpr float delta_angle(float from, float to)
+	inline float delta_angle(float from, float to)
 	{
 		float delta = repeat((to - from), 360.0f);
 		if (delta > 180.0f)
@@ -513,12 +513,12 @@ namespace linalg
 
 	constexpr int sign(float v) { return v > 0 ? 1 : -1; }
 
-	constexpr float move_towards(float from, float to, float delta) {
+	inline float move_towards(float from, float to, float delta) {
 		if (abs(to - from) <= delta)
 			return to;
 		return from + sign(to-from) * delta;
 	}
-	constexpr float move_towards_angle(float from, float to, float delta)
+	inline float move_towards_angle(float from, float to, float delta)
 	{
 		float deltaAngle = delta_angle(from, to);
 		if (-delta < deltaAngle && deltaAngle < delta)
